@@ -8,14 +8,29 @@ namespace StoneEmployee.Core.Entities
 {
     public class Employee : BaseEntity
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Document { get; set; }
-        public string Sector { get; set; }
-        public decimal GrossSalary { get; set; }
-        public DateTime AdmissionDate { get; set; }
-        public bool HasHealthPlan { get; set; }
-        public bool HasDentalPlan { get; set; }
-        public bool HasTransportationVouchers { get; set; }
+        public string FirstName { get; private set; }
+        public string LastName { get; private set; }
+        public string Document { get; private set; }
+        public string Sector { get; private set; }
+        public decimal GrossSalary { get; private set; }
+        public DateTime AdmissionDate { get; private set; }
+        public bool HasHealthPlan { get; private set; }
+        public bool HasDentalPlan { get; private set; }
+        public bool HasTransportationVouchers { get; private set; }
+
+        public Employee(string id, string firstName, string lastName, string document, string sector, decimal grossSalary,
+                        DateTime admissionDate, bool hasHealthPlan, bool hasDentalPlan, bool hasTransportationVouchers)
+        {
+            this.Id = id;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Document = document;
+            this.Sector = sector;
+            this.GrossSalary = grossSalary;
+            this.AdmissionDate = admissionDate;
+            this.HasHealthPlan = hasHealthPlan;
+            this.HasDentalPlan = hasDentalPlan;
+            this.HasTransportationVouchers = hasTransportationVouchers;
+        }
     }
 }
