@@ -30,7 +30,7 @@ namespace StoneEmployee.Application.Tests
                                     id: Guid.NewGuid().ToString(),
                                     firstName: "",
                                     lastName: "",
-                                    document: "",
+                                    document: "94498458087",
                                     sector: "",
                                     grossSalary: grossSalary,
                                     admissionDate: DateTime.Now,
