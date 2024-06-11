@@ -1,3 +1,5 @@
+![Logo do Projeto](StoneEmployee.API/Assets/stone-co.png)
+
 # API de Gerenciamento de Folha de Pagamento
 
 Este projeto é uma API ASP.NET Core para gerenciamento de folha de pagamento de funcionários, incluindo cálculo de salários, deduções (INSS, IRPF, plano de saúde, plano dental, vale transporte) e geração de contracheques. A API utiliza PostgreSQL como banco de dados e é containerizada usando Docker.
