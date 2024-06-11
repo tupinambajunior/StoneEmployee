@@ -16,7 +16,7 @@ namespace StoneEmployee.API.Mappers
                                  e.Document,
                                  e.Sector,
                                  e.GrossSalary,
-                                 e.AdmissionDate,
+                                 e.AdmissionDate.Date,
                                  e.HasHealthPlan,
                                  e.HasDentalPlan,
                                  e.HasTransportationVouchers)
