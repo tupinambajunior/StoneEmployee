@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using StoneEmployee.Application.DTO;
 using StoneEmployee.Application.Services.Interfaces;
 using StoneEmployee.Core.Entities;
+using StoneEmployee.Core.Exceptions;
 using StoneEmployee.Core.Repositories;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace StoneEmployee.Application.Services.Implementations
             _employeeValidator = employeeValidator;
         }
 
-        public async Task<Employee> Create(EmployeeDTO dto)
+        public async Task<EmployeeDTO> Create(EmployeeDTO dto)
         {
             var employeeByDocument = await _employeeRepository.GetByDocument(dto.Document);
 
@@ -48,17 +49,19 @@ namespace StoneEmployee.Application.Services.Implementations
 
             var employeeDb = await _employeeRepository.GetByIdAsync(employeeId);
 
-            return employeeDb;
+            var resultDto = _mapper.Map<EmployeeDTO>(employee);
+
+            return resultDto;
         }
 
-        public async Task<Employee> Update(EmployeeDTO dto, string id)
+        public async Task<EmployeeDTO> Update(EmployeeDTO dto, string id)
         {
             var employeeDb = await _employeeRepository.GetByIdAsync(id);
 
             if (employeeDb == null)
             {
                 _logger.LogWarning("Employee with id {Id} not found", id);
-                throw new Exception("Employee not found");
+                throw new NotFoundException("Employee not found");
             }
 
             var employeeByDocument = await _employeeRepository.GetByDocument(dto.Document, id);
@@ -76,7 +79,9 @@ namespace StoneEmployee.Application.Services.Implementations
 
             await _employeeRepository.SaveChangesAsync();
 
-            return employeeDb;
+            var resultDto = _mapper.Map<EmployeeDTO>(employeeDb);
+
+            return resultDto;
         }
 
         public async Task<EmployeeDTO> GetByIdAsync(string id)
@@ -87,10 +92,34 @@ namespace StoneEmployee.Application.Services.Implementations
             if (employee == null)
             {
                 _logger.LogWarning("Employee with id {Id} not found", id);
-                throw new Exception("Employee not found");
+                throw new NotFoundException("Employee not found");
             }
 
             var dto = _mapper.Map<EmployeeDTO>(employee);
+
+            return dto;
+        }
+
+        public async Task DeleteAsync(string id)
+        {
+            _logger.LogInformation("Fetching employee with id {Id}", id);
+            var employee = await _employeeRepository.GetByIdAsync(id);
+
+            if (employee == null)
+            {
+                _logger.LogWarning("Employee with id {Id} not found", id);
+                throw new NotFoundException("Employee not found");
+            }
+
+            await _employeeRepository.DeleteAsync(id);
+        }
+
+        public async Task<List<EmployeeDTO>> GetListAsync()
+        {
+            _logger.LogInformation("Fetching list of employees");
+            var employees = await _employeeRepository.GetListAsync();
+
+            var dto = _mapper.Map<List<EmployeeDTO>>(employees);
 
             return dto;
         }

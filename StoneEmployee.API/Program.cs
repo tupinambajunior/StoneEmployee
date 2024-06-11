@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using StoneEmployee.API.Configuration;
+using StoneEmployee.API.Filters;
 using StoneEmployee.API.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,10 @@ builder.Services.AddLogging();
 builder.Services.AddServicesConfiguration();
 builder.Services.AddRepositoryConfiguration();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(new HttpResponseExceptionFilter());
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(EmployeeMapper));

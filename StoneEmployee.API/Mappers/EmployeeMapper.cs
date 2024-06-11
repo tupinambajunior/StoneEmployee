@@ -9,8 +9,9 @@ namespace StoneEmployee.API.Mappers
         public EmployeeMapper()
         {
             CreateMap<EmployeeDTO, Employee>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ConstructUsing(e =>
-                    new Employee("",
+                    new Employee(e.Id,
                                  e.FirstName,
                                  e.LastName,
                                  e.Document,
