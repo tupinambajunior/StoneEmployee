@@ -20,7 +20,7 @@ namespace StoneEmployee.Infrastructure.Database.Repositories
         public async Task<Employee> GetByDocument(string document, string id = null)
         {
             var employee = await _dbContext.Employee
-                                            .Where(e => e.Document == document && 
+                                            .Where(e => e.Document.Value == document && 
                                                         e.Id != id)
                                             .FirstOrDefaultAsync();
 

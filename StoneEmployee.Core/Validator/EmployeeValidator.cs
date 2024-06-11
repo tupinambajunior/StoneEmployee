@@ -30,6 +30,9 @@ namespace StoneEmployee.Core.Validator
               .WithMessage("Last name must have a maximum of 255 characters.");
 
             RuleFor(e => e.Document)
+                .NotNull();
+
+            RuleFor(e => e.Document.Value)
               .NotEmpty()
               .WithMessage("Document is required.")
               .Length(11)

@@ -46,17 +46,20 @@ namespace StoneEmployee.Application.Services.Implementations
 
             var employeeId = await _employeeRepository.CreateAsync(employee);
 
-            var employeeDb = await Get(employeeId);
+            var employeeDb = await _employeeRepository.GetByIdAsync(employeeId);
 
             return employeeDb;
         }
 
         public async Task<Employee> Update(EmployeeDTO dto, string id)
         {
-            var employeeDb = await Get(id);
+            var employeeDb = await _employeeRepository.GetByIdAsync(id);
 
             if (employeeDb == null)
+            {
+                _logger.LogWarning("Employee with id {Id} not found", id);
                 throw new Exception("Employee not found");
+            }
 
             var employeeByDocument = await _employeeRepository.GetByDocument(dto.Document, id);
 
@@ -76,7 +79,7 @@ namespace StoneEmployee.Application.Services.Implementations
             return employeeDb;
         }
 
-        public async Task<Employee> Get(string id)
+        public async Task<EmployeeDTO> GetByIdAsync(string id)
         {
             _logger.LogInformation("Fetching employee with id {Id}", id);
             var employee = await _employeeRepository.GetByIdAsync(id);
@@ -87,7 +90,9 @@ namespace StoneEmployee.Application.Services.Implementations
                 throw new Exception("Employee not found");
             }
 
-            return employee;
+            var dto = _mapper.Map<EmployeeDTO>(employee);
+
+            return dto;
         }
     }
 }

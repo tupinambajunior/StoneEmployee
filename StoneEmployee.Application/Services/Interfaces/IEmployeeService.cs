@@ -12,6 +12,6 @@ namespace StoneEmployee.Application.Services.Interfaces
     {
         public Task<Employee> Create(EmployeeDTO dto);
         public Task<Employee> Update(EmployeeDTO dto, string id);
-        public Task<Employee> Get(string id);
+        public Task<EmployeeDTO> GetByIdAsync(string id);
     }
 }

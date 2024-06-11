@@ -20,8 +20,10 @@ namespace StoneEmployee.API.Mappers
                                  e.HasHealthPlan,
                                  e.HasDentalPlan,
                                  e.HasTransportationVouchers)
-                    ) ;
-            CreateMap<Employee, EmployeeDTO>();
+                    );
+
+            CreateMap<Employee, EmployeeDTO>()
+                .ForMember(dest => dest.Document, opt => opt.MapFrom(src => src.Document.Value));
         }
     }
 }

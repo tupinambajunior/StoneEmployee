@@ -32,13 +32,16 @@ namespace StoneEmployee.Infrastructure.Database.Configuration
                 .HasMaxLength(255);
 
             builder
-                .Property(x => x.Document)
-                .HasColumnName("document")
-                .HasMaxLength(11);
+                .OwnsOne(x => x.Document, doc =>
+                {
+                    doc.Property(d => d.Value)
+                        .HasColumnName("document")
+                        .IsRequired()
+                        .HasMaxLength(11);
 
-            builder
-                .HasIndex(x => x.Document)
-                .IsUnique();
+                    doc.HasIndex(i => i.Value)
+                        .IsUnique();
+                });
 
             builder
                 .Property(x => x.Sector)

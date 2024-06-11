@@ -66,7 +66,7 @@ namespace StoneEmployee.API.Controllers
             try
             {
                 _logger.LogInformation("Fetching employee with id {Id}", id);
-                var employee = await _employeeRepository.GetByIdAsync(id);
+                var employee = await _employeeService.GetByIdAsync(id);
 
                 if (employee == null)
                 {
