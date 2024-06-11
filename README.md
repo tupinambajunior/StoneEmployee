@@ -29,7 +29,7 @@ Este projeto é uma API ASP.NET Core para gerenciamento de folha de pagamento de
 - Docker
 - Docker Compose
 
-### Endpoints
+### Endpoints (Link para documentação no Swagger: https://localhost:5001/swagger/index.html)
 - Employee
     - Get employee by id: (GET) https://localhost:5001/api/Employee/f8dd54e1-324c-4749-8a3f-0a0b99a2d6cc
     - Delete employee by id: (DELETE) https://localhost:5001/api/Employee/f8dd54e1-324c-4749-8a3f-0a0b99a2d6cc
@@ -60,6 +60,8 @@ Este projeto é uma API ASP.NET Core para gerenciamento de folha de pagamento de
           } ```
 - Payslip
     - Get payslip by employee id: (GET) https://localhost:58891/api/Payslip/b7a1057e-82e4-4f63-b276-26deee001617
+ 
+### Docker HUB: https://hub.docker.com/r/tupinambajunior/stone-employee
 
 ### Clonar o Repositório
 
