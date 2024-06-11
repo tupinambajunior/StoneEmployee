@@ -14,12 +14,10 @@ namespace StoneEmployee.API.Controllers
     public class EmployeeController : ControllerCustom
     {
         private readonly IEmployeeService _employeeService;
-        private readonly IMapper _mapper;
         private readonly ILogger<EmployeeController> _logger;
 
-        public EmployeeController(IMapper mapper, ILogger<EmployeeController> logger, IEmployeeService employeeService)
+        public EmployeeController(ILogger<EmployeeController> logger, IEmployeeService employeeService)
         {
-            _mapper = mapper;
             _logger = logger;
             _employeeService = employeeService;
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoneEmployee.Core.Entities
 {
-    public class PaySlip : BaseEntity
+    public class PaySlip
     {
         public DateTime ReferenceMonth { get; set; }
         public List<PayslipItem> PayslipItems { get; set; }

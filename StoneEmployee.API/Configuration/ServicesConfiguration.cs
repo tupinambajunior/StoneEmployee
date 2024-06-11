@@ -18,6 +18,7 @@ namespace StoneEmployee.API.Configuration
             services.AddScoped<IPayslipItemCalculatorService, DentalPlanCalculatorService>();
 
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IPayslipService, PayslipService>();
 
             services.AddScoped<IValidator<Employee>, EmployeeValidator>();
 
