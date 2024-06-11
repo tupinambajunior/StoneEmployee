@@ -33,7 +33,9 @@ namespace StoneEmployee.Core.Validator
               .NotEmpty()
               .WithMessage("Document is required.")
               .Length(11)
-              .WithMessage("Document must have 11 characters.");
+              .WithMessage("Document must have 11 characters.")
+              .Must(CpfValidator.IsValid)
+              .WithMessage("Document is invalid.");
 
             RuleFor(e => e.Sector)
               .NotEmpty()
@@ -52,7 +54,7 @@ namespace StoneEmployee.Core.Validator
             RuleFor(e => e.AdmissionDate)
                 .NotEmpty()
                 .WithMessage("Addmision date is required")
-                .LessThan(new DateTime(DateTime.Now.Year, 12, 31))
+                .LessThanOrEqualTo(new DateTime(DateTime.Now.Year, 12, 31))
                 .WithMessage("Admission date connot be greather than the current year");
         }
     }
