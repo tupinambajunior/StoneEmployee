@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  stoneemployee.api:
+    image: ${DOCKER_REGISTRY-}stoneemployeeapi
+    build:
+      context: .
+      dockerfile: StoneEmployee.API/Dockerfile

@@ -37,6 +37,10 @@ namespace StoneEmployee.Infrastructure.Database.Configuration
                 .HasMaxLength(11);
 
             builder
+                .HasIndex(x => x.Document)
+                .IsUnique();
+
+            builder
                 .Property(x => x.Sector)
                 .HasColumnName("sector")
                 .HasMaxLength(255);

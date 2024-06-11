@@ -1,15 +1,29 @@
+using Microsoft.Extensions.Logging;
+using StoneEmployee.API.Configuration;
+using StoneEmployee.API.Mappers;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddDatabaseConfiguration(builder.Configuration);
+
+builder.Services.AddLogging();
+builder.Services.AddServicesConfiguration();
+builder.Services.AddRepositoryConfiguration();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(EmployeeMapper));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+//app.Use(async (context, next) =>
+//{
+//    logger.LogInformation("Handling request: {Path}", context.Request.Path);
+//    await next.Invoke();
+//    logger.LogInformation("Finished handling request.");
+//});
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

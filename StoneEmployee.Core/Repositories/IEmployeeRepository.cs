@@ -9,5 +9,6 @@ namespace StoneEmployee.Core.Repositories
 {
     public interface IEmployeeRepository : IRepository<Employee>
     {
+        public Task<Employee> GetByDocument(string document, string id = null);
     }
 }
