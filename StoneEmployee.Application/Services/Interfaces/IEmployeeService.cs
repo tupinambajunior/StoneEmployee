@@ -10,8 +10,8 @@ namespace StoneEmployee.Application.Services.Interfaces
 {
     public interface IEmployeeService
     {
-        public Task<string> Create(CreateEmployeeDTO dto);
-
+        public Task<Employee> Create(EmployeeDTO dto);
+        public Task<Employee> Update(EmployeeDTO dto, string id);
         public Task<Employee> Get(string id);
     }
 }

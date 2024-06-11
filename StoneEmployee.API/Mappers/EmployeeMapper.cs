@@ -8,7 +8,7 @@ namespace StoneEmployee.API.Mappers
     {
         public EmployeeMapper()
         {
-            CreateMap<CreateEmployeeDTO, Employee>()
+            CreateMap<EmployeeDTO, Employee>()
                 .ConstructUsing(e =>
                     new Employee("",
                                  e.FirstName,
@@ -21,7 +21,7 @@ namespace StoneEmployee.API.Mappers
                                  e.HasDentalPlan,
                                  e.HasTransportationVouchers)
                     ) ;
-            CreateMap<Employee, CreateEmployeeDTO>();
+            CreateMap<Employee, EmployeeDTO>();
         }
     }
 }

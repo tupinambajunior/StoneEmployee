@@ -29,7 +29,7 @@ namespace StoneEmployee.Application.Services.Implementations
             _employeeValidator = employeeValidator;
         }
 
-        public async Task<string> Create(CreateEmployeeDTO dto)
+        public async Task<Employee> Create(EmployeeDTO dto)
         {
             var employeeByDocument = await _employeeRepository.GetByDocument(dto.Document);
 
@@ -46,7 +46,34 @@ namespace StoneEmployee.Application.Services.Implementations
 
             var employeeId = await _employeeRepository.CreateAsync(employee);
 
-            return employeeId;
+            var employeeDb = await Get(employeeId);
+
+            return employeeDb;
+        }
+
+        public async Task<Employee> Update(EmployeeDTO dto, string id)
+        {
+            var employeeDb = await Get(id);
+
+            if (employeeDb == null)
+                throw new Exception("Employee not found");
+
+            var employeeByDocument = await _employeeRepository.GetByDocument(dto.Document, id);
+
+            if (employeeByDocument != null)
+                throw new Core.Exceptions.ValidationException("This document is being used by another employee");
+
+            _logger.LogInformation("Adding a new employee");
+            _mapper.Map(dto, employeeDb);
+
+            var validationResult = await _employeeValidator.ValidateAsync(employeeDb);
+
+            if (!validationResult.IsValid)
+                throw new FluentValidation.ValidationException(validationResult.Errors);
+
+            await _employeeRepository.SaveChangesAsync();
+
+            return employeeDb;
         }
 
         public async Task<Employee> Get(string id)

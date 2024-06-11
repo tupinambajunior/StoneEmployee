@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoneEmployee.Application.DTO
 {
-    public class CreateEmployeeDTO
+    public class EmployeeDTO
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

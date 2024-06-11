@@ -27,15 +27,32 @@ namespace StoneEmployee.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(CreateEmployeeDTO dto)
+        public async Task<ActionResult> Post(EmployeeDTO dto)
         {
             try
             {
                 _logger.LogInformation("Adding a new employee");
 
-                var employeeId = await _employeeService.Create(dto);
+                var employee = await _employeeService.Create(dto);
 
-                return CreatedAtAction(nameof(Get), new { id = employeeId }, dto);
+                return CreatedAtAction(nameof(Get), new { id = employee.Id }, employee);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex, _logger);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put(string id, [FromBody] EmployeeDTO dto)
+        {
+            try
+            {
+                _logger.LogInformation("Adding a new employee");
+
+                var employee = await _employeeService.Update(dto, id);
+
+                return OkResponse(employee);
             }
             catch (Exception ex)
             {
@@ -58,6 +75,30 @@ namespace StoneEmployee.API.Controllers
                 }
 
                 return OkResponse(employee);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex, _logger);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(string id)
+        {
+            try
+            {
+                _logger.LogInformation("Deleting employee with id {Id}", id);
+                var employee = await _employeeRepository.GetByIdAsync(id);
+
+                if (employee == null)
+                {
+                    _logger.LogWarning("Employee with id {Id} not found", id);
+                    return NotFound();
+                }
+
+                await _employeeRepository.DeleteAsync(id);
+
+                return NoContent();
             }
             catch (Exception ex)
             {
