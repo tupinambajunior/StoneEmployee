@@ -16,7 +16,7 @@ namespace StoneEmployee.API.Extensions
                 Message = ex.Message
             };
 
-            if (ex is ValidationException)
+            if (ex is ValidationException || ex is FluentValidation.ValidationException)
             {
                 _logger.LogInformation("Validation exception {message}", ex);
                 result.Type = "warning";
