@@ -52,13 +52,17 @@ namespace StoneEmployee.Application.Services.Implementations
             foreach (var calculator in _paymentSlipItemsCalculator)
             {
                 var discountValue = calculator.Calculate(employee);
-                paymentSlip.TotalDiscount += (discountValue * -1);
-                paymentSlip.PayslipItems.Add(new PayslipItem
+
+                if (discountValue != 0)
                 {
-                    Type = Core.Enumerators.PayslipItemType.discount,
-                    Value = discountValue,
-                    Description = calculator.GetType().Name.Replace("CalculatorService", "")
-                });
+                    paymentSlip.TotalDiscount += (discountValue * -1);
+                    paymentSlip.PayslipItems.Add(new PayslipItem
+                    {
+                        Type = Core.Enumerators.PayslipItemType.discount,
+                        Value = discountValue,
+                        Description = calculator.GetType().Name.Replace("CalculatorService", "")
+                    });
+                }
             }
 
             paymentSlip.NetSalary = employee.GrossSalary + paymentSlip.TotalDiscount;
