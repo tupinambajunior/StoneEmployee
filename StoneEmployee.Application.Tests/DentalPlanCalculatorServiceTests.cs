@@ -22,7 +22,19 @@ namespace StoneEmployee.Application.Tests
         [InlineData(false, 0)]
         public void Calculate_ShouldCalculateCorrectly(bool hasDentalPlan, decimal expectedTaxRate)
         {
-            var employee = new Employee { HasDentalPlan = hasDentalPlan };
+            var employee = new Employee(
+                                    id: Guid.NewGuid().ToString(),
+                                    firstName: "",
+                                    lastName: "",
+                                    document: "",
+                                    sector: "",
+                                    grossSalary: 0,
+                                    admissionDate: DateTime.Now,
+                                    hasDentalPlan: hasDentalPlan,
+                                    hasHealthPlan: false,
+                                    hasTransportationVouchers: false
+                                    );
+
             var currentTaxRate = _service.Calculate(employee);
 
             Assert.Equal(expectedTaxRate, currentTaxRate);

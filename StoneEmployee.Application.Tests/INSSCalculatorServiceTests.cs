@@ -40,7 +40,19 @@ namespace StoneEmployee.Application.Tests
         [InlineData(10_000, 1_400)]
         public void Calculate_ShouldCalculateCorrectly(decimal grossSalary, decimal expectedTaxRate)
         {
-            var employee = new Employee { GrossSalary = grossSalary };
+            var employee = new Employee(
+                                    id: Guid.NewGuid().ToString(),
+                                    firstName: "",
+                                    lastName: "",
+                                    document: "",
+                                    sector: "",
+                                    grossSalary: grossSalary,
+                                    admissionDate: DateTime.Now,
+                                    hasDentalPlan: false,
+                                    hasHealthPlan: false,
+                                    hasTransportationVouchers: false
+                                    );
+
             var currentTaxRate = _service.Calculate(employee);
 
             Assert.Equal(expectedTaxRate, currentTaxRate);
