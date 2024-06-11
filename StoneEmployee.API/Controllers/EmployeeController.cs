@@ -64,5 +64,21 @@ namespace StoneEmployee.API.Controllers
                 return HandleException(ex, _logger);
             }
         }
+
+        [HttpGet]
+        public async Task<ActionResult> GetList()
+        {
+            try
+            {
+                _logger.LogInformation("Fetching list employees");
+                var employee = await _employeeRepository.GetListAsync();
+
+                return OkResponse(employee);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex, _logger);
+            }
+        }
     }
 }
